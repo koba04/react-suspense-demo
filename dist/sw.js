@@ -1,18 +1,25 @@
+const cacheName = "api-cache-v1";
+
 self.addEventListener("fetch", e => {
   e.respondWith(
-    caches.match(e.request).then(res => {
-      if (res) return res;
-      const request = e.request.clone();
-      return fetch(request).then(response => {
-        if (!response || response.status !== 200 || response.type !== "basic") {
-          return response;
+    caches.open(cacheName).then(cache => {
+      return cache.match(e.request).then(res => {
+        if (res) {
+          console.log("cache hit!", e.request.url);
+          return res;
         }
-        if (!request.url.indexOf("https://api.github.com") === 0) {
-          caches.open("api-cache-v1").then(cache => {
+        const request = e.request.clone();
+        return fetch(request).then(response => {
+          if (!response || response.status !== 200) {
+            return response;
+          }
+          console.log(request.url);
+          if (request.url.indexOf("https://api.github.com") === 0) {
+            console.log("cached");
             cache.put(request, response.clone());
-          });
-        }
-        return response;
+          }
+          return response;
+        });
       });
     })
   );
