@@ -11,3 +11,9 @@ ReactDOM.render(
   </AsyncMode>,
   document.getElementById("js-app")
 );
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/sw.js")
+    .then(() => console.log("Service Worker has been registered"));
+}

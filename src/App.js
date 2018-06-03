@@ -1,17 +1,19 @@
 import React from "react";
-import { createCache, createResource } from "simple-cache-provider";
+import { getApiData } from "./api";
 
 const { Timeout } = React;
 
-const asyncData = () =>
-  new Promise(r => setTimeout(() => r("Async Data"), 1000));
-
-const cache = createCache(() => {});
-const fetcher = createResource(asyncData);
-
-const Text = () => {
-  const data = fetcher.read(cache);
-  return <div>{data}</div>;
+const Repositories = () => {
+  const data = getApiData();
+  return (
+    <ul>
+      {data.map(d => (
+        <li key={d.id}>
+          <a href={d.html_url}>{d.full_name}</a>(★{d.stargazers_count})
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default class App extends React.Component {
@@ -19,8 +21,11 @@ export default class App extends React.Component {
     return (
       <>
         <h1>Hello Suspense Demo</h1>
-        <Timeout ms={500}>
-          {didExpire => (didExpire ? <div>loading...</div> : <Text />)}
+        <Timeout ms={5000}>
+          {didExpire => {
+            console.log("didExpire", didExpire);
+            return didExpire ? <div>loading...</div> : <Repositories />;
+          }}
         </Timeout>
       </>
     );

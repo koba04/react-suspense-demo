@@ -4,11 +4,13 @@
   "description": "A Demo for React Suspense",
   "main": "src/index.js",
   "scripts": {
-    "start": "webpack-serve --content dist",
+    "start": "webpack-serve --content dist --open",
     "postinstall": "patch-package",
     "build": "webpack"
   },
-  "keywords": ["react"],
+  "keywords": [
+    "react"
+  ],
   "author": "koba04",
   "license": "MIT",
   "dependencies": {
