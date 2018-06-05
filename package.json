@@ -5,7 +5,6 @@
   "main": "src/index.js",
   "scripts": {
     "start": "webpack-serve --content dist --open",
-    "postinstall": "patch-package",
     "build": "webpack"
   },
   "keywords": [
@@ -14,8 +13,8 @@
   "author": "koba04",
   "license": "MIT",
   "dependencies": {
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
+    "react": "^16.4.0-alpha.0911da3",
+    "react-dom": "^16.4.0-alpha.0911da3",
     "simple-cache-provider": "^0.6.0",
     "styled-components": "^3.3.2"
   },
@@ -24,7 +23,6 @@
     "@babel/preset-env": "^7.0.0-beta.49",
     "@babel/preset-react": "^7.0.0-beta.49",
     "babel-loader": "^8.0.0-beta.3",
-    "patch-package": "^5.1.1",
     "prettier": "^1.13.2",
     "webpack": "^4.10.1",
     "webpack-cli": "^2.1.4",
