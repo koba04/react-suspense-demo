@@ -34,7 +34,9 @@ export default class App extends React.Component {
         <form
           onSubmit={e => {
             e.preventDefault();
-            this.setState(() => ({ user: this.input.value }));
+            requestAnimationFrame(() => {
+              this.setState(() => ({ user: this.input.value }));
+            });
           }}
         >
           <Input
