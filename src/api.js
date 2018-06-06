@@ -5,11 +5,10 @@ function wait(ms) {
 }
 
 function callApi([user, waitMs]) {
-  return wait(waitMs).then(() =>
-    fetch(`https://api.github.com/users/${user}/starred`).then(res =>
-      res.json()
-    )
-  );
+  return Promise.all([
+    fetch(`https://api.github.com/users/${user}/starred`),
+    wait(waitMs)
+  ]).then(([res]) => res.json());
 }
 
 const cache = createCache();
