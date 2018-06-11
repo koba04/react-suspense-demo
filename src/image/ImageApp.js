@@ -11,17 +11,47 @@ const Header = styled.h1`
 `;
 
 const Placeholder = styled.div`
-  width: 200px;
-  height: 200px;
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
   background-color: #ccc;
 `;
+
+const imageWidth = 600;
+const imageHeight = imageWidth * 0.75;
+
+const ImageWrapperWithTimeout = props => (
+  <div>
+    <Header>image wrapper</Header>
+    <div>
+      <Timeout ms={1000}>
+        {didExpired =>
+          didExpired ? (
+            <Placeholder width={props.width} height={props.height} />
+          ) : (
+            <PreloadImage {...props} />
+          )
+        }
+      </Timeout>
+    </div>
+  </div>
+);
+
+const ImageWrapper = props => (
+  <div>
+    <Header>image wrapper</Header>
+    <div>
+      <PreloadImage {...props} />
+    </div>
+  </div>
+);
 
 class ImageApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       preload: false,
-      shouldShow: false
+      shouldShow: false,
+      shouldFixImageSize: false
     };
   }
   render() {
@@ -51,17 +81,31 @@ class ImageApp extends React.Component {
             />
             preload
           </label>
+          &nbsp;/&nbsp;
+          <label>
+            <input
+              type="checkbox"
+              checked={this.state.shouldFixImageSize}
+              onChange={({ target: checked }) =>
+                this.setState(() => ({ shouldFixImageSize: checked }))
+              }
+            />
+            fix the image size
+          </label>
         </div>
         {shouldShow && (
           <>
             <Timeout ms={timeoutMs}>
               {didExpired =>
                 didExpired ? (
-                  <Placeholder />
+                  <Placeholder width={imageWidth} height={imageHeight} />
                 ) : (
                   <PreloadImage
-                    src="https://avatars1.githubusercontent.com/u/250407?s=400&v=4"
+                    src="sushi.jpg"
                     preload={this.state.preload}
+                    shouldFixImageSize={this.state.shouldFixImageSize}
+                    width={imageWidth}
+                    height={imageHeight}
                     waitMs={waitMs}
                   />
                 )

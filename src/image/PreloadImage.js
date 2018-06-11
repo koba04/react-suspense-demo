@@ -1,10 +1,20 @@
 import React from "react";
 import { preloadImage } from "./imageLoader";
 
-const PreloadImage = ({ src, preload, waitMs }) => {
+const PreloadImage = ({
+  src,
+  preload,
+  width,
+  height,
+  shouldFixImageSize,
+  waitMs
+}) => {
   if (preload) preloadImage(src, waitMs);
-  return <img width="200" height="200" src={src} />;
-  // return <img src={src} />;
+  let props = { src, width };
+  if (shouldFixImageSize) {
+    props = { ...props, height };
+  }
+  return <img {...props} />;
 };
 
 export default PreloadImage;
