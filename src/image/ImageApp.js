@@ -16,7 +16,7 @@ const Placeholder = styled.div`
   background-color: #ccc;
 `;
 
-const imageWidth = 600;
+const imageWidth = 300;
 const imageHeight = imageWidth * 0.75;
 
 const ImageWrapperWithTimeout = props => (
@@ -75,7 +75,7 @@ class ImageApp extends React.Component {
             <input
               type="checkbox"
               checked={this.state.prelaod}
-              onChange={({ target: checked }) =>
+              onChange={({ target: { checked } }) =>
                 this.setState(() => ({ preload: checked }))
               }
             />
@@ -86,7 +86,7 @@ class ImageApp extends React.Component {
             <input
               type="checkbox"
               checked={this.state.shouldFixImageSize}
-              onChange={({ target: checked }) =>
+              onChange={({ target: { checked } }) =>
                 this.setState(() => ({ shouldFixImageSize: checked }))
               }
             />
