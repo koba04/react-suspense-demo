@@ -18,6 +18,11 @@ const Button = styled.button`
   height: 2rem;
 `;
 
+const Loading = styled.div`
+  font-size: 1.3rem;
+  padding-top: 5px;
+`;
+
 export default class GitHubApp extends React.Component {
   constructor(props) {
     super(props);
@@ -50,7 +55,7 @@ export default class GitHubApp extends React.Component {
             {didExpire => {
               console.log("didExpire", didExpire);
               return didExpire ? (
-                <div>loading...</div>
+                <Loading>loading...</Loading>
               ) : (
                 <Repositories user={this.state.user} waitMs={waitMs} />
               );
